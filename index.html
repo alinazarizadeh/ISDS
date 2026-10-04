@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>کاتالوگ ابزارها و بلوک‌ها | ISDS AI FACTORY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --lime:#84cc16; --lime-dark:#4d7c0f; --lime-light:#ecfccb; --lime-mid:#bef264;
+    --ink:#1c2416; --gray:#5b6553; --line:#e7eedd; --bg:#fff;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  [id]{scroll-margin-top:80px}
+  body{font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--bg);color:var(--ink);line-height:1.9;font-size:16px}
+  .container{max-width:1150px;margin:0 auto;padding:0 24px}
+  .hidden{display:none!important}
+
+  /* ===== Header ===== */
+  header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:2px solid var(--lime)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+  .nav-logo{height:48px;width:auto;display:block}
+  nav.links{display:flex;gap:2px;flex-wrap:wrap;justify-content:flex-end}
+  nav.links a{text-decoration:none;color:var(--gray);font-size:.82rem;font-weight:500;padding:5px 11px;border-radius:99px;transition:.2s}
+  nav.links a:hover{background:var(--lime-light);color:var(--lime-dark)}
+  @media(max-width:1050px){nav.links{display:none}}
+
+  /* ===== Hero ===== */
+  .hero{text-align:center;padding:60px 24px 50px;
+    background:radial-gradient(600px 300px at 15% 0%,var(--lime-light) 0%,transparent 60%),
+               radial-gradient(600px 300px at 85% 10%,#f7fee7 0%,transparent 60%),var(--bg)}
+  .hero-logo{height:120px;width:auto;margin:0 auto 28px;display:block;
+    filter:drop-shadow(0 8px 20px rgba(30,58,110,.18))}
+  .badge{display:inline-block;background:var(--lime-light);color:var(--lime-dark);border:1px solid var(--lime-mid);
+    border-radius:99px;font-size:.8rem;font-weight:700;padding:6px 18px;margin-bottom:20px}
+  .hero h1{font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:900;line-height:1.5;margin-bottom:16px}
+  .hero h1 em{font-style:normal;color:var(--lime-dark)}
+  .hero p.lead{max-width:800px;margin:0 auto;color:var(--gray);font-size:1rem}
+  .stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+  .stat{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px 30px;min-width:140px}
+  .stat b{display:block;font-size:1.7rem;font-weight:900;color:var(--lime-dark)}
+  .stat span{font-size:.83rem;color:var(--gray)}
+
+  /* ===== Search ===== */
+  .search-wrap{max-width:640px;margin:34px auto 0;position:relative}
+  .search-wrap input{width:100%;padding:15px 52px 15px 20px;border:2px solid var(--lime-mid);border-radius:14px;
+    font-family:inherit;font-size:1rem;background:#fff;outline:none;transition:.2s}
+  .search-wrap input:focus{border-color:var(--lime);box-shadow:0 0 0 4px rgba(132,204,22,.15)}
+  .search-wrap .s-ic{position:absolute;right:18px;top:50%;transform:translateY(-50%);color:var(--lime-dark);font-size:1.1rem}
+  .search-wrap .s-clear{position:absolute;left:14px;top:50%;transform:translateY(-50%);border:none;cursor:pointer;
+    width:30px;height:30px;border-radius:50%;background:var(--lime-light);color:var(--lime-dark);font-size:1rem;display:none}
+  .result-note{text-align:center;margin-top:12px;font-size:.9rem;color:var(--lime-dark);font-weight:700;display:none}
+  .cat-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:26px}
+  .cat-pills a{text-decoration:none;font-size:.82rem;font-weight:600;color:var(--lime-dark);
+    background:#fff;border:1.5px solid var(--lime-mid);padding:6px 14px;border-radius:99px;transition:.2s}
+  .cat-pills a:hover{background:var(--lime);color:#fff;border-color:var(--lime)}
+
+  /* ===== Section headers ===== */
+  section{padding:56px 0;border-bottom:1px solid var(--line)}
+  .sec-head{margin-bottom:26px}
+  .sec-num{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;border-radius:12px;
+    background:var(--lime);color:#fff;font-weight:900;font-size:1.05rem;margin-inline-end:12px;box-shadow:0 4px 12px rgba(132,204,22,.3)}
+  .sec-head h2{font-size:1.5rem;font-weight:800;display:inline;vertical-align:middle}
+  .count-badge{display:inline-block;background:var(--lime-light);color:var(--lime-dark);border:1px solid var(--lime-mid);
+    border-radius:99px;font-size:.78rem;font-weight:700;padding:3px 13px;margin-inline-start:10px;vertical-align:middle}
+  .sec-head>p{color:var(--gray);margin-top:10px;max-width:880px;font-size:.95rem}
+  .sec-head strong{color:var(--lime-dark)}
+
+  /* ===== Figures (diagrams) ===== */
+  figure.diagram{margin:30px auto 8px;max-width:900px;background:#fff;border:1.5px solid var(--line);
+    border-radius:16px;padding:20px;transition:.25s;box-shadow:0 6px 24px rgba(28,36,22,.06)}
+  figure.diagram:hover{border-color:var(--lime);box-shadow:0 12px 32px rgba(132,204,22,.14)}
+  figure.diagram img{width:100%;height:auto;display:block;border-radius:10px}
+  figure.diagram figcaption{text-align:center;margin-top:14px;font-size:.88rem;color:var(--gray)}
+  figure.diagram figcaption b{color:var(--lime-dark)}
+  .diagram-note{max-width:900px;margin:14px auto 0;font-size:.88rem;color:var(--gray);
+    text-align:center;display:flex;gap:22px;justify-content:center;flex-wrap:wrap}
+  .diagram-note span{display:inline-flex;align-items:center;gap:7px}
+  .arrow-flow{width:26px;height:4px;border-radius:4px;background:#2f74d0;display:inline-block}
+  .arrow-model{width:26px;height:4px;border-radius:4px;background:#f0932b;display:inline-block}
+
+  /* ===== Cards ===== */
+  .grid{display:grid;gap:16px}
+  .grid-2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .grid-3{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:22px 24px;transition:.25s}
+  .card:hover{border-color:var(--lime);box-shadow:0 10px 30px rgba(132,204,22,.12);transform:translateY(-3px)}
+  .card h3{font-size:1.02rem;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .card h3 .ic{width:38px;height:38px;border-radius:10px;background:var(--lime-light);
+    display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+  .card p{color:var(--gray);font-size:.9rem}
+
+  /* ===== About ===== */
+  .about-text{max-width:880px}
+  .about-text p{color:#3b4433;margin-bottom:14px;font-size:.98rem}
+
+  /* ===== Steps ===== */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;counter-reset:step;margin-top:34px}
+  .step{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:24px 20px 18px;position:relative}
+  .step::before{counter-increment:step;content:counter(step);position:absolute;top:-16px;right:20px;width:34px;height:34px;
+    border-radius:50%;background:var(--lime);color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 10px rgba(132,204,22,.35)}
+  .step h3{font-size:1rem;font-weight:800;margin-bottom:6px}
+  .step p{color:var(--gray);font-size:.88rem}
+
+  /* ===== Note box ===== */
+  .note-box{margin-top:22px;background:var(--lime-light);border-inline-start:4px solid var(--lime);
+    border-radius:0 12px 12px 0;padding:14px 18px;font-size:.92rem;color:#3b4433}
+  .note-box b{color:var(--lime-dark)}
+
+  /* ===== Tools ===== */
+  section.cat{padding:50px 0 40px}
+  .tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+  .tool{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;transition:.22s}
+  .tool:hover{border-color:var(--lime);box-shadow:0 8px 24px rgba(132,204,22,.12);transform:translateY(-3px)}
+  .tool h3{font-size:1rem;font-weight:800;display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+  .tool h3 code{font-family:'JetBrains Mono',monospace;direction:ltr;font-size:.74rem;font-weight:700;
+    background:var(--lime-light);color:var(--lime-dark);padding:2px 10px;border-radius:7px;border:1px solid var(--lime-mid)}
+  .tool p{color:var(--gray);font-size:.88rem}
+  .subgroup{margin-top:28px}
+  .subgroup>h3{font-size:1.1rem;font-weight:800;color:var(--lime-dark);margin-bottom:14px;
+    padding-inline-start:14px;border-inline-start:4px solid var(--lime);display:flex;align-items:center;gap:10px}
+  .subgroup>h3 .count-badge{margin-inline-start:auto}
+
+  /* ===== CTA / Footer ===== */
+  .cta{text-align:center;padding:64px 24px;border-bottom:none;
+    background:linear-gradient(135deg,#f7fee7,#fff 55%,#ecfccb)}
+  .cta h2{font-size:1.6rem;font-weight:900;margin-bottom:12px}
+  .cta p{color:var(--gray);max-width:640px;margin:0 auto 26px}
+  .btn{text-decoration:none;font-weight:700;font-size:.95rem;padding:12px 30px;border-radius:12px;transition:.2s;display:inline-block;margin:0 6px}
+  .btn-primary{background:var(--lime);color:#fff;box-shadow:0 8px 24px rgba(132,204,22,.35)}
+  .btn-primary:hover{background:var(--lime-dark);transform:translateY(-2px)}
+  .btn-ghost{border:2px solid var(--lime);color:var(--lime-dark);background:#fff}
+  .btn-ghost:hover{background:var(--lime-light)}
+  footer{background:#1c2416;color:#c9d6b0;text-align:center;padding:26px;font-size:.85rem}
+  footer b{color:var(--lime-mid)}
+  .top{position:fixed;bottom:24px;left:24px;width:46px;height:46px;border-radius:50%;background:var(--lime);color:#fff;
+    display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:1.2rem;
+    box-shadow:0 6px 18px rgba(132,204,22,.4);transition:.2s;z-index:99}
+  .top:hover{background:var(--lime-dark);transform:translateY(-3px)}
+  .no-result{text-align:center;color:var(--gray);padding:40px;display:none}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <!-- 🔹 لوگوی مرکز در هدر -->
+    <a href="#"><img src="isds-logo.png" alt="مرکز سیستم‌های اطلاعات و علم داده شرق — ISDS" class="nav-logo"></a>
+    <nav class="links">
+      <a href="#about">درباره مرکز</a>
+      <a href="#platform">زیرساخت</a>
+      <a href="#workflow">چرخه ساخت</a>
+      <a href="#tools">ابزارها</a>
+      <a href="#solutions">راهکارها</a>
+      <a href="#deploy">استقرار</a>
+      <a href="#contact">تماس</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<div class="hero">
+  <!-- 🔹 لوگوی مرکز در ابتدای صفحه -->
+  <img src="isds-logo.png" alt="ISDS — مرکز سیستم‌های اطلاعات و علم داده شرق" class="hero-logo">
+
+  <span class="badge">مرکز سیستم‌های اطلاعات و علم داده شرق — ISDS</span>
+  <h1>بلوک‌ها و کاربرد <em>ابزارها</em><br>ISDS AI FACTORY</h1>
+  <p class="lead">زیرساختی یکپارچه برای توسعه و اجرای برنامه‌های مبتنی بر هوش مصنوعی؛ از مدیریت داده و دسترسی به مدل‌ها تا ساخت بصری جریان‌های کاری و انتشار برنامه. در این کاتالوگ، بخش‌های اصلی زیرساخت و ابزارهای زیرمجموعه هر بخش همراه با توضیح کاربرد معرفی می‌شوند.</p>
+
+  <div class="stats">
+    <div class="stat"><b>۱۱۵</b><span>ابزار و بلوک</span></div>
+    <div class="stat"><b>۱۰</b><span>دسته‌بندی اصلی</span></div>
+    <div class="stat"><b>۵</b><span>جزء زیرساخت</span></div>
+    <div class="stat"><b>۵</b><span>راهکار آماده</span></div>
+  </div>
+
+  <div class="search-wrap">
+    <span class="s-ic">🔍</span>
+    <input type="text" id="searchInput" placeholder="جستجو در ابزارها… مثلاً: OCR، ترجمه، خوشه‌بندی، JSON">
+    <button class="s-clear" id="clearBtn" title="پاک کردن">✕</button>
+  </div>
+  <div class="result-note" id="resultNote"><span id="resultCount">۰</span> ابزار یافت شد</div>
+
+  <div class="cat-pills">
+    <a href="#about">🏢 درباره مرکز</a>
+    <a href="#platform">🏗️ زیرساخت</a>
+    <a href="#tools">🧰 کاتالوگ ابزارها</a>
+    <a href="#ai">🤖 گفتگو و دانش</a>
+    <a href="#ml">🧠 یادگیری ماشین</a>
+    <a href="#bigdata">⚡ کلان داده</a>
+    <a href="#solutions">💡 راهکارها</a>
+    <a href="#deploy">🚀 استقرار</a>
+  </div>
+</div>
+
+<!-- ================= ABOUT THE CENTER ================= -->
+<section id="about">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">🏢</span><h2>درباره مرکز ISDS</h2>
+    </div>
+    <div class="about-text">
+      <p><strong>مرکز سیستم‌های اطلاعات و علم داده شرق (ISDS)</strong> زیرساخت <strong>AI Factory</strong> را به‌عنوان بستری یکپارچه برای توسعه، اجرا و بهره‌برداری از برنامه‌های مبتنی بر هوش مصنوعی در سازمان ارائه می‌دهد. این زیرساخت همه اجزای لازم برای ساختن یک برنامه هوشمند — مدیریت داده، دسترسی به مدل‌ها، محیط توسعه و ساخت بصری — را در یک محیط واحد گرد هم می‌آورد.</p>
+      <p>قابلیت‌های هوش مصنوعی در قالب <strong>بلوک‌ها و ابزارهایی</strong> ارائه می‌شود که هرکدام وظیفه‌ای مشخص دارند؛ مانند پردازش متن، تحلیل تصویر، تبدیل گفتار، بازیابی دانش یا تولید پاسخ. کاربران می‌توانند بدون نیاز به کدنویسی گسترده و تیم تخصصی هوش مصنوعی، این بلوک‌ها را به هم متصل کنند، جریان‌های هوشمند بسازند، آن‌ها را آزمایش و اجرا کنند و نتیجه را به‌صورت یک برنامه کاربردی تحویل بگیرند.</p>
+      <p>همه مراحل — از آماده‌سازی داده و ساخت بصری برنامه تا انتشار و بهره‌برداری از خروجی — در همین محیط انجام می‌شود. ابزارها قابلیت‌های تخصصی حوزه‌هایی مانند مدل زبانی، گفتار، بینایی، کلان‌داده، یادگیری ماشین و پردازش داده را در اختیار کاربر قرار می‌دهند و با اتصال آن‌ها به یکدیگر، چند مرحله پردازش در قالب یک جریان کاری ترکیب می‌شود.</p>
+    </div>
+    <div class="grid grid-2" style="margin-top:26px">
+      <div class="card"><h3><span class="ic">🏠</span>استقرار در زیرساخت داخلی</h3><p>امکان اجرای کامل در زیرساخت خودِ سازمان؛ کنترل مستقیم بر محل نگهداری داده، دسترسی‌ها و امنیت اطلاعات.</p></div>
+      <div class="card"><h3><span class="ic">🧩</span>ساخت بصری کم‌کد</h3><p>طراحی جریان‌های کاری با اتصال بلوک‌ها در استودیو؛ بدون نیاز به تیم تخصصی هوش مصنوعی یا کدنویسی سنگین.</p></div>
+      <div class="card"><h3><span class="ic">🔌</span>دسترسی برنامه‌نویسی</h3><p>فراخوانی مدل‌ها و برنامه‌های منتشرشده از طریق API و SDK پایتون در نرم‌افزارهای موجود سازمان.</p></div>
+      <div class="card"><h3><span class="ic">⚡</span>تحویل سریع نتایج</h3><p>تبدیل سناریوی تجاری به یک فرایند سفارشی قابل آزمایش و انتشار، در چرخه‌ای کوتاه و با داده واقعی سازمان.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLATFORM COMPONENTS ================= -->
+<section id="platform">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">🏗️</span><h2>اجزای زیرساخت AI Factory</h2>
+      <p>پنج جزء اصلی، چرخه کامل توسعه و مصرف هوش مصنوعی سازمانی را پوشش می‌دهند؛ از نگهداری داده تا انتشار برنامه برای کاربران و نرم‌افزارها.</p>
+    </div>
+
+    <!-- 🔹 نمودار معماری زیرساخت -->
+    <figure class="diagram">
+      <img src="arch-diagram.png" alt="معماری زیرساخت AI Factory — اجزای اصلی روی خوشه Kubernetes">
+      <figcaption><b>نمای کلی معماری AI Factory:</b> اجزای زیرساخت روی خوشه Kubernetes با ذخیره‌سازی Ceph و HDFS</figcaption>
+    </figure>
+    <div class="diagram-note">
+      <span><span class="arrow-flow"></span> جریان داده (Data Flow)</span>
+      <span><span class="arrow-model"></span> جریان مدل (Model Flow)</span>
+    </div>
+
+    <div class="grid grid-3" style="margin-top:30px">
+      <div class="card"><h3><span class="ic">📁</span>درایو من <small style="color:var(--gray);font-weight:500">My Drive</small></h3><p>ذخیره‌سازی و سازمان‌دهی داده‌ها بر پایه Ceph و HDFS؛ با جستجو، فیلتر و مدیریت فضای ذخیره‌سازی.</p></div>
+      <div class="card"><h3><span class="ic">⚙️</span>سرو مدل‌ها <small style="color:var(--gray);font-weight:500">Model Serving</small></h3><p>دسترسی به مدل‌های فعال (K-Serve، ML کلاسیک و الگوریتم‌های Spark) از طریق API و SDK پایتون.</p></div>
+      <div class="card"><h3><span class="ic">📊</span>دستیار تحلیل داده <small style="color:var(--gray);font-weight:500">EDA Agent</small></h3><p>بررسی فایل‌های جدولی با رابط زبان طبیعی و اجرای پرس‌وجوی SQL، پایتون و Spark.</p></div>
+      <div class="card"><h3><span class="ic">💻</span>محیط برنامه‌نویسی <small style="color:var(--gray);font-weight:500">Coding Environment</small></h3><p>محیط توسعه تحت وب با چرخه حیات Pod مبتنی بر Kubernetes و منابع CPU، GPU و حافظه قابل تخصیص.</p></div>
+      <div class="card"><h3><span class="ic">🎨</span>استودیو <small style="color:var(--gray);font-weight:500">Studio</small></h3><p>سازنده بصری جریان کاری (Workflow Builder) و چت‌بات (Chatbot Builder) با اتصال بلوک‌ها.</p></div>
+      <div class="card"><h3><span class="ic">🔌</span>انتشار و اتصال</h3><p>ارائه برنامه‌ها در میز کار، اجرای مستقل، فراخوانی با API و کلید دسترسی، یا درج در سایت با کد تعبیه‌شده.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WORKFLOW ================= -->
+<section id="workflow">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">🔁</span><h2>چرخه ساخت یک برنامه هوشمند</h2>
+      <p>مسیر یک برنامه هوش مصنوعی در AI Factory به‌صورت شفاف و قابل پیگیری تعیین می‌شود: خروجی هر مرحله وارد مرحله بعد می‌شود، پردازش انجام می‌گیرد و نتیجه در جریان کار ترکیب می‌شود.</p>
+    </div>
+
+    <!-- 🔹 نمودار جریان داده و لایه پردازش یکپارچه -->
+    <figure class="diagram">
+      <img src="flow-diagram.png" alt="جریان داده میان اجزای AI Factory و لایه پردازش یکپارچه">
+      <figcaption><b>جریان داده و لایه پردازش یکپارچه:</b> تعامل درایو من، سرو مدل‌ها، تعاملات کاربر، Podهای برنامه‌نویسی و جریان‌های استودیو از طریق SDK و لایه پردازش واحد</figcaption>
+    </figure>
+
+    <div class="steps">
+      <div class="step"><h3>داده</h3><p>بارگذاری و سازمان‌دهی فایل‌ها، اسناد و داده‌های سازمان در درایو من.</p></div>
+      <div class="step"><h3>پردازش</h3><p>انتخاب بلوک‌های پردازشی متن، صوت، تصویر یا داده و اتصال آن‌ها به یکدیگر.</p></div>
+      <div class="step"><h3>ساخت برنامه</h3><p>ترکیب چند مرحله پردازش در قالب یک جریان کاری در استودیو.</p></div>
+      <div class="step"><h3>آزمایش</h3><p>اجرای برنامه در محیط استودیو، مشاهده خروجی و اصلاح مسیرها.</p></div>
+      <div class="step"><h3>انتشار</h3><p>ارائه به کاربران در میز کار، نرم‌افزار سازمان یا سایت.</p></div>
+    </div>
+    <div class="note-box"><b>مثال:</b> برای یک دستیار پاسخ‌گو، اسناد سازمان در درایو بارگذاری می‌شود، بلوک استخراج دانش (RAG) اطلاعات مرتبط را بازیابی می‌کند، مدل زبانی پاسخ تولید می‌کند و بلوک پاسخ، نتیجه نهایی را به کاربر تحویل می‌دهد.</div>
+  </div>
+</section>
+
+<!-- ================= TOOLS CATALOG ================= -->
+<div id="tools">
+<div class="container" style="padding-top:50px">
+  <div class="sec-head" style="margin-bottom:0">
+    <span class="sec-num">🧰</span><h2>کاتالوگ ابزارها و بلوک‌ها</h2><span class="count-badge">۱۱۵ ابزار</span>
+    <p>هر بلوک یک وظیفه مشخص بر عهده دارد و خروجی آن به مرحله بعد منتقل می‌شود. در ادامه، ابزارها به تفکیک دسته‌بندی با توضیح کاربرد هرکدام ارائه شده‌اند.</p>
+  </div>
+</div>
+
+<!-- 1. AI CHAT & KNOWLEDGE -->
+<section class="cat" id="ai">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۱</span><h2>هوش مصنوعی گفتگو و دانش</h2><span class="count-badge">۴ ابزار</span>
+      <p>بلوک‌های اصلی ساخت دستیار هوشمند و پاسخ‌گویی مبتنی بر اسناد و دانش سازمان؛ هسته مرکزی برنامه‌های مکالمه‌ای.</p>
+    </div>
+    <div class="tools">
+      <div class="tool"><h3>مدل زبان بزرگ <code>LLM</code></h3><p>متن ورودی، دستورالعمل و مستندات مرتبط را دریافت و بر اساس آن پاسخ تولید می‌کند؛ پاسخ‌گویی به پرسش‌ها، خلاصه‌سازی، تحلیل مکاتبات و تهیه پیش‌نویس گزارش از کاربردهای آن است.</p></div>
+      <div class="tool"><h3>استخراج دانش <code>RAG</code></h3><p>پیدا کردن اطلاعات مرتبط از اسناد و پایگاه دانش بر اساس سؤال ورودی و تحویل آن به مدل زبانی یا مراحل بعدی؛ جزء اصلی پاسخ‌گویی مبتنی بر مستندات سازمانی و دانش اختصاصی سازمان.</p></div>
+      <div class="tool"><h3>درک سؤال <code>Question Understanding</code></h3><p>تشخیص موضوع درخواست کاربر و هدایت آن به مسیر مناسب در جریان؛ مثلاً تفکیک درخواست‌های مالی، منابع انسانی یا پشتیبانی برای ادامه پردازش در مسیر مربوط.</p></div>
+      <div class="tool"><h3>پاسخ <code>Response</code></h3><p>تعیین نتیجه نهایی تحویلی به کاربر پس از اجرای جریان کاری؛ خروجی می‌تواند متن، عدد، داده ساخت‌یافته یا نتیجه یکی از مراحل قبلی باشد.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. LOGIC -->
+<section class="cat" id="logic">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۲</span><h2>منطق و کنترل جریان</h2><span class="count-badge">۲ ابزار</span>
+      <p>کنترل مسیر و شرط اجرای مراحل جریان کاری؛ تعیین می‌کند برنامه در هر لحظه کدام مسیر را طی کند.</p>
+    </div>
+    <div class="tools">
+      <div class="tool"><h3>شرط <code>IF/ELSE</code></h3><p>انتخاب مسیر اجرا بر اساس مقدار متغیر یا نتیجه یک شرط.</p></div>
+      <div class="tool"><h3>تکرار <code>Iteration</code></h3><p>اجرای چندباره مراحل؛ برای مثال پردازش اقلام یک مجموعه داده.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. TRANSFORM -->
+<section class="cat" id="transform">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۳</span><h2>تبدیل و پردازش داده</h2><span class="count-badge">۶ ابزار</span>
+      <p>آماده‌سازی و تغییر شکل اطلاعات میان مراحل جریان کاری تا هر مرحله، داده را با ساختار و مقادیر مناسب دریافت کند.</p>
+    </div>
+    <div class="tools">
+      <div class="tool"><h3>کد <code>Code</code></h3><p>اجرای کد سفارشی برای محاسبه یا تغییر ساختار داده.</p></div>
+      <div class="tool"><h3>لینک <code>Template</code></h3><p>ساخت متن با قالب ثابت و جایگذاری متغیرها در آن.</p></div>
+      <div class="tool"><h3>تجمیع‌کننده متن <code>Text Aggregator</code></h3><p>یکی‌کردن خروجی متنی مسیرهای مختلف برای استفاده در مرحله بعد.</p></div>
+      <div class="tool"><h3>استخراج‌کننده سند <code>Document Extractor</code></h3><p>استخراج محتوای سند و آماده‌کردن آن برای پردازش بعدی.</p></div>
+      <div class="tool"><h3>تجمیع‌کننده متغیر <code>Variable Aggregator</code></h3><p>یکنواخت‌سازی و تجمیع مقادیر متغیرهای مختلف در جریان برنامه.</p></div>
+      <div class="tool"><h3>استخراج‌کننده پارامتر <code>Parameter Extractor</code></h3><p>استخراج فیلدهای مشخص از متن؛ مانند نام، تاریخ و نوع درخواست.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. TEXT -->
+<section class="cat" id="text">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۴</span><h2>پردازش متن</h2><span class="count-badge">۴ ابزار</span>
+      <p>ابزارهای تخصصی پردازش محتوای نوشتاری؛ از خلاصه‌سازی مکاتبات تا ترجمه محتوای چندزبانه.</p>
+    </div>
+    <div class="tools">
+      <div class="tool"><h3>خلاصه‌سازی متن <code>text summarization</code></h3><p>استخراج نکات اصلی از متن طولانی و تولید خلاصه مطلوب.</p></div>
+      <div class="tool"><h3>طبقه‌بندی بدون آموزش <code>text_zero_shot_classification</code></h3><p>طبقه‌بندی متن بر اساس دسته‌های تعریف‌شده، بدون نیاز به آموزش اختصاصی برای همان دسته‌ها.</p></div>
+      <div class="tool"><h3>استخراج اطلاعات <code>Text extraction</code></h3><p>استخراج اطلاعات مورد نیاز از متن برای پردازش در مراحل بعد.</p></div>
+      <div class="tool"><h3>ترجمه <code>Translator</code></h3><p>ترجمه محتوا میان زبان‌های پشتیبانی‌شده مدل.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. SPEECH -->
+<section class="cat" id="speech">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۵</span><h2>پردازش گفتار</h2><span class="count-badge">۳ ابزار</span>
+      <p>تبدیل میان صوت و متن و دسته‌بندی محتوای صوتی؛ پایه پیاده‌سازی متن جلسات، پردازش تماس‌ها و دستیار صوتی.</p>
+    </div>
+    <div class="tools">
+      <div class="tool"><h3>گفتار به متن <code>Speech To Text</code></h3><p>تبدیل گفتار ضبط‌شده به متن قابل پردازش و جستجو.</p></div>
+      <div class="tool"><h3>متن به گفتار <code>Text to Speech</code></h3><p>تبدیل متن به صدای قابل پخش.</p></div>
+      <div class="tool"><h3>طبقه‌بندی صوت <code>Audio Classification</code></h3><p>تشخیص دسته یا رویداد صوتی بر اساس مدل فعال.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. VISION -->
+<section class="cat" id="vision">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۶</span><h2>پردازش بینایی</h2><span class="count-badge">۱۲ ابزار</span>
+      <p>تحلیل و تولید محتوای تصویری؛ از OCR و تشخیص اشیاء تا بازیابی بصری اسناد. انتخاب ابزار به نوع خروجی مورد نیاز بستگی دارد: طبقه‌بندی دسته کلی را می‌دهد، تشخیص اشیاء نوع و محل، قطعه‌بندی نواحی پیکسلی و ردیابی، مسیر شیء را در فریم‌ها دنبال می‌کند.</p>
+    </div>
+    <div class="tools">
+      <div class="tool"><h3>توصیف تصویر <code>Image Captioning</code></h3><p>تولید متن درباره محتوای یک تصویر.</p></div>
+      <div class="tool"><h3>تولید تصویر از متن <code>Text To Image</code></h3><p>تولید تصویر از توضیح متنی کاربر.</p></div>
+      <div class="tool"><h3>استخراج متن از تصویر <code>vision OCR</code></h3><p>استخراج متن از تصویر یا سند اسکن‌شده.</p></div>
+      <div class="tool"><h3>طبقه‌بندی تصویر <code>Image Classification</code></h3><p>تعیین دسته کلی تصویر؛ مانند سالم یا معیوب.</p></div>
+      <div class="tool"><h3>قطعه‌بندی تصویر <code>Image Segmentation</code></h3><p>جداسازی نواحی یا اشیاء در سطح پیکسل.</p></div>
+      <div class="tool"><h3>بازیابی بصری اسناد <code>Visual Document Retrieval</code></h3><p>بازیابی اسناد بر اساس محتوای بصری و ارتباط آن‌ها با درخواست.</p></div>
+      <div class="tool"><h3>تخمین عمق صحنه <code>Vision Depth Estimation</code></h3><p>تخمین ساختار عمق صحنه و برآورد فاصله اجزا در تصویر.</p></div>
+      <div class="tool"><h3>تشخیص وضعیت بدن <code>Vision Pose Estimation</code></h3><p>برآورد نقاط و وضعیت بدن در تصویر.</p></div>
+      <div class="tool"><h3>ردیابی اشیاء <code>Object Tracker</code></h3><p>دنبال‌کردن یک شیء در فریم‌های متوالی ویدئو.</p></div>
+      <div class="tool"><h3>تشخیص اشیاء <code>Object Detection</code></h3><p>تشخیص نوع و محل اشیاء در تصویر.</p></div>
+      <div class="tool"><h3>پردازش مشترک تصویر و زبان <code>Vision Language</code></h3><p>پردازش مشترک تصویر و زبان؛ مانند پاسخ به سؤال درباره یک تصویر.</p></div>
+      <div class="tool"><h3>پرسش‌وپاسخ درباره سند <code>document question answering</code></h3><p>پاسخ به پرسش درباره سند تصویری؛ مانند یافتن مبلغ فاکتور.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. MACHINE LEARNING -->
+<section class="cat" id="ml">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۷</span><h2>یادگیری ماشین</h2><span class="count-badge">۳۱ ابزار</span>
+      <p>ساخت مدل روی داده‌های سازمان در سه دسته اصلی، همراه با ابزارهای آماده‌سازی داده، تقسیم مجموعه‌داده، ارزیابی و نمودار. تفاوت اصلی طبقه‌بندی و رگرسیون در نوع خروجی است: طبقه‌بندی یک دسته و رگرسیون مقدار عددی را پیش‌بینی می‌کند.</p>
+    </div>
+    <div class="subgroup">
+      <h3>🎯 طبقه‌بندی <span class="count-badge">۹ ابزار</span></h3>
+      <div class="tools">
+        <div class="tool"><h3><code>Predict</code></h3><p>اعمال مدل طبقه‌بندی آموزش‌دیده بر داده جدید.</p></div>
+        <div class="tool"><h3><code>pre processing</code></h3><p>آماده‌سازی داده پیش از مدلسازی؛ عملیات دقیق به تنظیمات ابزار بستگی دارد.</p></div>
+        <div class="tool"><h3><code>Decision Tree Classifier</code></h3><p>درخت تصمیم؛ تعیین دسته با مجموعه‌ای از قواعد و شرط‌ها.</p></div>
+        <div class="tool"><h3><code>K-Nearest Neighbors Classifier</code></h3><p>نزدیک‌ترین همسایه‌ها؛ تعیین دسته بر اساس نمونه‌های مشابه.</p></div>
+        <div class="tool"><h3><code>Support Vector Classifier</code></h3><p>ماشین بردار پشتیبان؛ یافتن مرز جداکننده میان دسته‌ها.</p></div>
+        <div class="tool"><h3><code>Logistic Regression</code></h3><p>رگرسیون لجستیک؛ برآورد احتمال تعلق به دسته‌ها و طبقه‌بندی.</p></div>
+        <div class="tool"><h3><code>Dataset Splitting</code></h3><p>تقسیم داده برای مراحل آموزش و سنجش مدل.</p></div>
+        <div class="tool"><h3><code>Model evaluation</code></h3><p>ارزیابی عملکرد مدل با مقایسه پیش‌بینی و پاسخ واقعی.</p></div>
+        <div class="tool"><h3><code>Chart</code></h3><p>نمایش نموداری داده یا نتیجه در فرایند طبقه‌بندی.</p></div>
+      </div>
+    </div>
+    <div class="subgroup">
+      <h3>🧩 خوشه‌بندی <span class="count-badge">۱۱ ابزار</span></h3>
+      <div class="tools">
+        <div class="tool"><h3><code>Predict</code></h3><p>اعمال مدل خوشه‌بندی بر داده جدید.</p></div>
+        <div class="tool"><h3><code>K-Means Clustering</code></h3><p>تقسیم داده به تعداد مشخص گروه بر اساس نزدیکی به مرکز هر گروه.</p></div>
+        <div class="tool"><h3><code>DBSCAN Clustering</code></h3><p>تشکیل گروه‌های متراکم و شناسایی نقاط خارج از خوشه به‌عنوان نویز.</p></div>
+        <div class="tool"><h3><code>OPTICS Clustering</code></h3><p>خوشه‌بندی بر پایه ساختار چگالی؛ با امکان بررسی تراکم‌های متفاوت.</p></div>
+        <div class="tool"><h3><code>Agglomerative Clustering</code></h3><p>خوشه‌بندی سلسله‌مراتبی با ادغام تدریجی گروه‌های مشابه.</p></div>
+        <div class="tool"><h3><code>Spectral Clustering</code></h3><p>خوشه‌بندی طیفی با استفاده از روابط شباهت میان داده‌ها.</p></div>
+        <div class="tool"><h3><code>Affinity Propagation</code></h3><p>تشکیل خوشه‌ها با انتخاب نمونه‌های نماینده از میان داده‌ها.</p></div>
+        <div class="tool"><h3><code>Birch Clustering</code></h3><p>خوشه‌بندی با خلاصه‌سازی تدریجی داده؛ مناسب برخی مجموعه‌داده‌های بزرگ.</p></div>
+        <div class="tool"><h3><code>Dataset Splitting</code></h3><p>تقسیم مجموعه‌داده در جریان پردازش خوشه‌بندی.</p></div>
+        <div class="tool"><h3><code>label</code></h3><p>ابزار مرتبط با برچسب‌گذاری داده (توضیح تکمیلی در مستندات).</p></div>
+        <div class="tool"><h3><code>Chart</code></h3><p>نمایش نموداری داده‌ها یا خوشه‌های حاصل.</p></div>
+      </div>
+    </div>
+    <div class="subgroup">
+      <h3>📈 رگرسیون <span class="count-badge">۱۱ ابزار</span></h3>
+      <div class="tools">
+        <div class="tool"><h3><code>Predict</code></h3><p>اعمال مدل رگرسیون بر داده جدید و تولید مقدار عددی.</p></div>
+        <div class="tool"><h3><code>pre processing</code></h3><p>آماده‌سازی داده ورودی برای مدل رگرسیون.</p></div>
+        <div class="tool"><h3><code>Linear Regression</code></h3><p>مدل‌کردن رابطه خطی میان ویژگی‌های ورودی و مقدار هدف.</p></div>
+        <div class="tool"><h3><code>Decision Tree Regression</code></h3><p>پیش‌بینی عددی با تقسیم داده بر اساس قواعد درختی.</p></div>
+        <div class="tool"><h3><code>Random Forest Regression</code></h3><p>پیش‌بینی عددی با ترکیب خروجی چند درخت تصمیم.</p></div>
+        <div class="tool"><h3><code>Support Vector Regression</code></h3><p>پیش‌بینی عددی با روش بردار پشتیبان؛ محدوده تحمل خطا.</p></div>
+        <div class="tool"><h3><code>Ridge Regression</code></h3><p>رگرسیون با محدودکردن بزرگی ضرایب برای کنترل پیچیدگی مدل.</p></div>
+        <div class="tool"><h3><code>Lasso Regression</code></h3><p>رگرسیون با کمک ضرایب خرد و انتخاب ویژگی‌ها.</p></div>
+        <div class="tool"><h3><code>ElasticNet Regression</code></h3><p>پیش‌بینی عددی با ترکیب دو روش منظم‌سازی L1 و L2.</p></div>
+        <div class="tool"><h3><code>Dataset Splitting</code></h3><p>جداسازی داده‌های مورد استفاده در آموزش و سنجش.</p></div>
+        <div class="tool"><h3><code>Chart</code></h3><p>نمایش نموداری داده یا نتیجه پیش‌بینی عددی.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. BIG DATA -->
+<section class="cat" id="bigdata">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۸</span><h2>کلان داده (اسپارک)</h2><span class="count-badge">۳۱ ابزار</span>
+      <p>مجموعه‌ای از ابزارهای پردازش و تحلیل مبتنی بر <strong>Spark</strong> برای کار با داده‌های حجیم در بستر توزیع‌شده؛ از بارگذاری و فیلتر داده تا مدل‌سازی، تحلیل متن و گراف. ظرفیت پردازش به زیرساخت و تنظیمات اجرا وابسته است.</p>
+    </div>
+    <div class="subgroup">
+      <h3>🗃️ پردازش داده و جلسه <span class="count-badge">۱۱ ابزار</span></h3>
+      <div class="tools">
+        <div class="tool"><h3><code>connector</code></h3><p>ابزار اتصال.</p></div>
+        <div class="tool"><h3><code>create session</code></h3><p>ایجاد جلسه (Session) پردازش برای اجرای عملیات کلان‌داده.</p></div>
+        <div class="tool"><h3><code>end session</code></h3><p>پایان‌دادن به جلسه پردازش.</p></div>
+        <div class="tool"><h3><code>load data</code></h3><p>بارگذاری داده در پوشه پروژه پردازش.</p></div>
+        <div class="tool"><h3><code>filter</code></h3><p>نگه‌داشتن ردیف‌هایی که شرط مشخص را برآورده می‌کنند.</p></div>
+        <div class="tool"><h3><code>select columns</code></h3><p>انتخاب ستون‌های مورد نیاز از داده.</p></div>
+        <div class="tool"><h3><code>display dataframe</code></h3><p>نمایش داده جدولی برای مشاهده و بررسی.</p></div>
+        <div class="tool"><h3><code>save dataframe</code></h3><p>ذخیره داده جدولی پردازش‌شده.</p></div>
+        <div class="tool"><h3><code>sparksql</code></h3><p>اجرای پرس‌وجوی SQL روی داده‌های محیط Spark.</p></div>
+        <div class="tool"><h3><code>code_exec</code></h3><p>اجرای کد سفارشی در فرایند پردازش.</p></div>
+        <div class="tool"><h3><code>Spark Search</code></h3><p>ابزار جستجو در بخش Spark؛ دامنه و روش جستجو در فایل تنظیم شده است.</p></div>
+      </div>
+    </div>
+    <div class="subgroup">
+      <h3>📊 تحلیل آماری <span class="count-badge">۶ ابزار</span></h3>
+      <div class="tools">
+        <div class="tool"><h3><code>statistics corr</code></h3><p>محاسبه همبستگی برای سنجش ارتباط آماری متغیرها.</p></div>
+        <div class="tool"><h3><code>statistics cov</code></h3><p>محاسبه کوواریانس برای بررسی تغییرات مشترک متغیرها.</p></div>
+        <div class="tool"><h3><code>statistics percentile</code></h3><p>محاسبه صدک‌ها برای شناخت توزیع مقادیر.</p></div>
+        <div class="tool"><h3><code>statistics colstat</code></h3><p>محاسبه آمار ستون‌های داده.</p></div>
+        <div class="tool"><h3><code>statistics summary</code></h3><p>تولید خلاصه آماری از داده‌ها.</p></div>
+        <div class="tool"><h3><code>Spark Frequent Item</code></h3><p>شناسایی اقلام پرتکرار در داده.</p></div>
+      </div>
+    </div>
+    <div class="subgroup">
+      <h3>🤖 مدل‌سازی و تحلیل متن <span class="count-badge">۸ ابزار</span></h3>
+      <div class="tools">
+        <div class="tool"><h3><code>linear regression</code></h3><p>مدل‌سازی رابطه خطی برای پیش‌بینی مقدار عددی.</p></div>
+        <div class="tool"><h3><code>dimension reduction</code></h3><p>کاهش تعداد ویژگی‌ها برای ساده‌سازی، تحلیل و مدلسازی.</p></div>
+        <div class="tool"><h3><code>recommender ALS</code></h3><p>ساخت پیشنهاددهی بر پایه الگوریتم تعامل کاربران و اقلام (ALS).</p></div>
+        <div class="tool"><h3><code>tfidf</code></h3><p>تبدیل متن به بردار واژه‌ها بر اساس اهمیت آن‌ها در مجموعه اسناد (TF-IDF).</p></div>
+        <div class="tool"><h3><code>word to vector</code></h3><p>تبدیل واژه‌ها به بردارهای عددی برای پردازش و تحلیل متن.</p></div>
+        <div class="tool"><h3><code>predict</code></h3><p>اجرای مدل روی داده برای تولید پیش‌بینی.</p></div>
+        <div class="tool"><h3><code>save model</code></h3><p>ذخیره مدل برای استفاده در مراحل یا اجراهای بعدی.</p></div>
+        <div class="tool"><h3><code>load model</code></h3><p>بارگذاری مدل ذخیره‌شده برای استفاده مجدد.</p></div>
+      </div>
+    </div>
+    <div class="subgroup">
+      <h3>🕸️ تحلیل گراف <span class="count-badge">۶ ابزار</span></h3>
+      <div class="tools">
+        <div class="tool"><h3><code>GA pagerank</code></h3><p>رتبه‌بندی اهمیت گره‌ها بر اساس ساختار ارتباطات گراف.</p></div>
+        <div class="tool"><h3><code>Graph bfs</code></h3><p>پیمایش سطح‌به‌سطح گراف برای بررسی دسترسی و مسیرها.</p></div>
+        <div class="tool"><h3><code>GA Connected Components</code></h3><p>شناسایی گروه‌های متصل در گراف.</p></div>
+        <div class="tool"><h3><code>GA Label Propagation</code></h3><p>شناسایی اجتماع‌های گراف با انتشار برچسب میان گره‌های همسایه.</p></div>
+        <div class="tool"><h3><code>GA Triangle Count</code></h3><p>شمارش مثلث‌ها برای بررسی انسجام و تراکم محلی گراف.</p></div>
+        <div class="tool"><h3><code>GA Shortest Paths</code></h3><p>محاسبه مسیرهای کوتاه در گراف مطابق وزن یال‌ها و تنظیمات ابزار.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 9. UTILITIES -->
+<section class="cat" id="utility">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۹</span><h2>ابزارهای کاربردی و کمکی</h2><span class="count-badge">۱۶ ابزار</span>
+      <p>امکانات عمومی مورد نیاز جریان کاری؛ از ارتباط با سرویس‌ها و مدیریت JSON تا کار با زمان، نمودار و ابزارهای کمکی دیگر.</p>
+    </div>
+    <div class="tools">
+      <div class="tool"><h3>درخواست HTTP <code>HTTP Request</code></h3><p>فراخوانی API و ارسال یا دریافت داده از یک سرویس دیگر.</p></div>
+      <div class="tool"><h3>عملگر لیست <code>List Operator</code></h3><p>عملیات روی فهرست داده‌ها؛ نوع عملیات قابل انتخاب طبق تنظیمات بلوک است.</p></div>
+      <div class="tool"><h3>درج در JSON <code>JSON Insert</code></h3><p>افزودن مقدار یا عنصر جدید به ساختار JSON.</p></div>
+      <div class="tool"><h3>حذف از JSON <code>JSON Delete</code></h3><p>حذف مقدار یا عنصر از ساختار JSON.</p></div>
+      <div class="tool"><h3>تجزیه JSON <code>JSON Parse</code></h3><p>خواندن و تبدیل متن JSON به ساختار قابل پردازش.</p></div>
+      <div class="tool"><h3>جایگزینی در JSON <code>JSON Replace</code></h3><p>جایگزینی مقدار یا بخش مشخص در JSON.</p></div>
+      <div class="tool"><h3>استخراج با عبارت منظم <code>Regex Extract</code></h3><p>استخراج بخش‌های منطبق با الگوی مشخص از متن؛ مانند شماره تماس یا کد پیگیری.</p></div>
+      <div class="tool"><h3>تولید QR کد <code>Generate QR Code</code></h3><p>تولید QR از متن، نشانی اینترنتی یا داده ورودی.</p></div>
+      <div class="tool"><h3>زمان جاری <code>Current Time</code></h3><p>دریافت زمان جاری.</p></div>
+      <div class="tool"><h3>تبدیل منطقه زمانی <code>convert time to equivalent time zone</code></h3><p>تبدیل زمان به منطقه زمانی دیگر.</p></div>
+      <div class="tool"><h3>زمان عددی به محلی <code>Timestamp to localtime</code></h3><p>تبدیل زمان عددی به زمان محلی قابل خواندن.</p></div>
+      <div class="tool"><h3>زمان محلی به عددی <code>localtime to timestamp</code></h3><p>تبدیل زمان محلی به نمایش عددی زمان.</p></div>
+      <div class="tool"><h3>محاسبه روز هفته <code>Weekday Calculator</code></h3><p>محاسبه روز هفته برای تاریخ مورد نظر.</p></div>
+      <div class="tool"><h3>نمودار میله‌ای <code>Bar Chart</code></h3><p>نمودار میله‌ای برای مقایسه مقادیر چند گروه.</p></div>
+      <div class="tool"><h3>نمودار خطی <code>Line Chart</code></h3><p>نمودار خطی برای نمایش روند یا تغییرات.</p></div>
+      <div class="tool"><h3>نمودار دایره‌ای <code>Pie Chart</code></h3><p>نمودار دایره‌ای برای نمایش سهم اجزا از کل.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. EXTERNAL -->
+<section class="cat" id="external">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">۱۰</span><h2>اتصال به منابع بیرونی</h2><span class="count-badge">۶ ابزار</span>
+      <p>ابزارهای متصل به سامانه‌ها و منابع اطلاعاتی بیرونی؛ استفاده از آن‌ها به دسترسی شبکه و تنظیمات صحیح سرویس نیاز دارد.</p>
+    </div>
+    <div class="tools">
+      <div class="tool"><h3>ایجاد در الستیک‌سرچ <code>Elasticsearch Create</code></h3><p>عملیات ایجاد در Elasticsearch؛ نوع موجودیت (مانند سند یا نمایه) بر اساس تنظیمات ابزار است.</p></div>
+      <div class="tool"><h3>پرس‌وجوی الستیک‌سرچ <code>Elasticsearch Query</code></h3><p>اجرای پرس‌وجو برای بازیابی اطلاعات ذخیره‌شده در Elasticsearch.</p></div>
+      <div class="tool"><h3>جستجوی ویکی‌پدیا <code>WikipediaSearch</code></h3><p>جستجو در ویکی‌پدیا برای بازیابی اطلاعات عمومی.</p></div>
+      <div class="tool"><h3>شعر <code>Poem</code></h3><p>ابزار مرتبط با دریافت یا دسترسی به شعر از گنجور.</p></div>
+      <div class="tool"><h3>شاعر <code>Poet</code></h3><p>ابزار مرتبط با اطلاعات شاعران.</p></div>
+      <div class="tool"><h3>فال <code>faal</code></h3><p>ابزار مرتبط با دریافت فال از سرویس آنلاین.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="no-result" id="noResult">😅 ابزاری با این عبارت پیدا نشد. عبارت دیگری امتحان کنید.</div>
+</div><!-- /tools -->
+
+<!-- ================= SOLUTIONS ================= -->
+<section id="solutions">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">💡</span><h2>راهکارهای نمونه قابل ساخت</h2>
+      <p>این نمونه‌ها مسیرهای استفاده از قابلیت‌های AI Factory هستند؛ پیاده‌سازی هر راهکار بر اساس داده، فرایند و معیار پذیرش همان سازمان انجام می‌شود.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card"><h3><span class="ic">📚</span>دستیار دانش سازمانی</h3><p>ترکیب استخراج دانش (RAG) و مدل زبانی برای پاسخ‌گویی بر پایه اسناد، راهنماها و دستورالعمل‌های سازمان.</p></div>
+      <div class="card"><h3><span class="ic">📄</span>پردازش اسناد</h3><p>ترکیب OCR، استخراج اطلاعات و قواعد جریان کاری برای آماده‌سازی داده اسناد و ارسال نتیجه به سامانه مقصد.</p></div>
+      <div class="card"><h3><span class="ic">🗓️</span>پردازش جلسات و تماس‌ها</h3><p>تبدیل صوت به متن، خلاصه‌سازی محتوا و استخراج اطلاعات مورد نیاز برای بازبینی کاربر و تهیه پیش‌نویس صورت‌جلسه.</p></div>
+      <div class="card"><h3><span class="ic">🎧</span>دستیار خدمات مشتری</h3><p>ترکیب پایگاه دانش، تشخیص موضوع درخواست و فراخوانی ابزار برای طراحی مسیر پاسخ‌گویی و دریافت اطلاعات از سامانه‌های مرتبط مانند CRM.</p></div>
+      <div class="card"><h3><span class="ic">📈</span>تحلیل و پیش‌بینی</h3><p>ترکیب آماده‌سازی داده، روش‌های یادگیری ماشین و نمودار برای بررسی الگوها، پیش‌بینی فروش یا تقاضا و بخش‌بندی مشتریان.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DEPLOYMENT ================= -->
+<section id="deploy">
+  <div class="container">
+    <div class="sec-head">
+      <span class="sec-num">🚀</span><h2>استقرار و شروع همکاری</h2>
+      <p>AI Factory با رویکرد استفاده سازمانی و امکان <strong>استقرار در زیرساخت داخلی</strong> ارائه می‌شود. در طراحی استقرار، محل نگهداری داده، مدل‌های مورد استفاده، دسترسی‌های شبکه و منابع پردازشی بر اساس نیاز سازمان تعیین می‌شوند. اجرای کاملاً داخلی به انتخاب مدل‌ها و سرویس‌هایی وابسته است که به پردازش بیرونی نیاز نداشته باشند.</p>
+      <p>زبان‌ها، فرمت‌ها، ظرفیت پردازش و امکانات قابل ارائه در هر استقرار، متناسب با مدل‌های فعال و منابع اختصاص‌یافته مشخص می‌شوند.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><h3>بررسی کاربرد</h3><p>یک کاربرد مشخص و نمونه‌ای از داده‌های مرتبط، مبنای بررسی قرار می‌گیرد.</p></div>
+      <div class="step"><h3>انتخاب قابلیت‌ها</h3><p>قابلیت‌ها و ابزارهای مورد نیاز از کاتالوگ انتخاب می‌شوند.</p></div>
+      <div class="step"><h3>نسخه اولیه</h3><p>نسخه اولیه برای ارزیابی با داده واقعی سازمان شکل می‌گیرد.</p></div>
+      <div class="step"><h3>توسعه و اتصال</h3><p>توسعه دامنه و اتصال به سامانه‌های عملیاتی بر اساس نتیجه ارزیابی.</p></div>
+    </div>
+    <div class="note-box"><b>اتصال سازمانی:</b> اتصال به سامانه‌هایی مانند CRM، ERP یا منابع انسانی از طریق API قابل طراحی است. دامنه اتصال به رابط‌های موجود، سطح دسترسی و نیاز پروژه بستگی دارد.</div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<div class="cta" id="contact">
+  <h2>برنامه هوشمند سازمان خود را بسازید</h2>
+  <p>برای مشاهده قابلیت‌ها، درخواست دمو و بررسی سناریوی مورد نظر سازمان خود، با تیم ISDS در ارتباط باشید.</p>
+  <a class="btn btn-primary" href="#">درخواست دمو</a>
+  <a class="btn btn-ghost" href="#">بررسی سناریوی سازمانی</a>
+</div>
+
+<footer>
+  کاتالوگ بلوک‌ها و ابزارهای <b>ISDS AI FACTORY</b> — مرکز سیستم‌های اطلاعات و علم داده شرق
+</footer>
+
+<a href="#" class="top" title="بازگشت به بالا">↑</a>
+
+<script>
+  const input  = document.getElementById('searchInput');
+  const clear  = document.getElementById('clearBtn');
+  const note   = document.getElementById('resultNote');
+  const count  = document.getElementById('resultCount');
+  const noRes  = document.getElementById('noResult');
+  const tools  = document.querySelectorAll('.tool');
+  const catSecs  = document.querySelectorAll('section.cat');
+  const infoSecs = document.querySelectorAll('#about, #platform, #workflow, #solutions, #deploy');
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    clear.style.display = q ? 'block' : 'none';
+    let visible = 0;
+
+    tools.forEach(t => {
+      const match = t.textContent.toLowerCase().includes(q);
+      t.classList.toggle('hidden', !match);
+      if (match) visible++;
+    });
+
+    catSecs.forEach(s => {
+      const any = s.querySelectorAll('.tool:not(.hidden)').length > 0;
+      s.classList.toggle('hidden', !any);
+    });
+
+    infoSecs.forEach(s => s.classList.toggle('hidden', !!q));
+
+    noRes.style.display = (q && visible === 0) ? 'block' : 'none';
+    note.style.display = q ? 'block' : 'none';
+    count.textContent = visible.toLocaleString('fa-IR');
+  });
+
+  clear.addEventListener('click', () => {
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    input.focus();
+  });
+</script>
+
+</body>
+</html>
